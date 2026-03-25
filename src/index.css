@@ -11,7 +11,13 @@
   --color-primary-dark: #422300;
 }
 
-body {
+#root {
   font-family: "Outfit";
   background-color: var(--color-primary-light);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
 }

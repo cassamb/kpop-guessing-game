@@ -20,7 +20,7 @@ const Navbar = () => {
     );
     
     return (
-    <header className="relative w-9/10 max-w-6xl mx-auto py-4 text-primary-med font-semibold bg-primary-light xl:py-7">
+    <header className="relative w-9/10 max-w-6xl text-primary-med font-semibold bg-primary-light xl:py-7">
         <nav className="flex justify-between items-center">
             <h3 className="text-4xl tracking-tighter xl:text-5xl">KGG</h3>
             
