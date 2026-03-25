@@ -20,16 +20,16 @@ const Navbar = () => {
     );
     
     return (
-    <header className="relative w-9/10 max-w-6xl text-primary-med font-semibold bg-primary-light xl:py-7">
+    <header className="relative w-9/10 max-w-6xl text-primary-med font-semibold bg-primary-light">
         <nav className="flex justify-between items-center">
-            <h3 className="text-4xl tracking-tighter xl:text-5xl">KGG</h3>
+            <h2 className="text-4xl tracking-tighter xl:text-5xl">KGG</h2>
             
             {/* Updating the mobile menu toggle state and icons based on user interaction */}
-            <button onClick={() => setShowMobileMenu((prevState => !prevState))} className="sm:hidden cursor-pointer z-20">
-                {showMobileMenu ? <FaTimes className="text-2xl"/> : <IoMdMenu className="text-2xl"/>}
+            <button onClick={() => setShowMobileMenu((prevState => !prevState))} className="md:hidden cursor-pointer z-20">
+                {showMobileMenu ? <FaTimes className="text-3xl"/> : <IoMdMenu className="text-3xl"/>}
             </button>
 
-            <div className="hidden sm:visible sm:flex sm:gap-10 text-xl xl:text-2xl">
+            <div className="hidden md:visible md:flex md:gap-10 text-xl xl:text-2xl">
                 <NavLink to="/" className={navLinkClass}>Home</NavLink>
                 <NavLink to="/instructions" className={navLinkClass}>Instructions</NavLink>
                 <NavLink to="/study-guide" className={navLinkClass}>Study Guide</NavLink>
@@ -38,7 +38,7 @@ const Navbar = () => {
             {/* Showing mobile navigation links if the state variable is true */}
             {showMobileMenu ? (
                 <div onClick={() => setShowMobileMenu(false)} className="fixed bg-black/50 min-h-screen z-9 w-screen flex justify-center items-center top-0 left-0 sm:hidden">
-                    <div onClick={(e) => e.stopPropagation()} className="fixed bg-primary-light rounded-l-xl overflow-y-hidden z-10 top-0 right-0 w-3/4 min-h-screen flex flex-col items-center pt-18 transition-all duration-500 ease-in">
+                    <div onClick={(e) => e.stopPropagation()} className="fixed bg-primary-light rounded-l-xl overflow-y-hidden z-10 top-0 right-0 w-3/4 min-h-screen flex flex-col items-center pt-20 transition-all duration-500 ease-in">
                         <NavLink to="/" className={mobileLinkClass}><FaHome/>Home</NavLink>
                         <NavLink to="/instructions" className={mobileLinkClass}><FaInfoCircle/>Instructions</NavLink>
                         <NavLink to="/study-guide" className={mobileLinkClass}><ImBooks/>Study Guide</NavLink>
@@ -46,7 +46,7 @@ const Navbar = () => {
                 </div>
             ) : (
                 <div className="fixed bg-black/50 min-h-screen z-9 w-screen flex justify-center items-center top-0 -right-full sm:hidden">
-                    <div className="fixed bg-primary-light rounded-l-xl overflow-y-hidden z-10 top-0 -right-full w-3/4 min-h-screen flex flex-col items-center pt-18 transition-all duration-500 ease-in">
+                    <div className="fixed bg-primary-light rounded-l-xl overflow-y-hidden z-10 top-0 -right-full w-3/4 min-h-screen flex flex-col items-center pt-20 transition-all duration-500 ease-in">
                         <NavLink to="/" className={mobileLinkClass}><FaHome/>Home</NavLink>
                         <NavLink to="/instructions" className={mobileLinkClass}><FaInfoCircle/>Instructions</NavLink>
                         <NavLink to="/study-guide" className={mobileLinkClass}><ImBooks/>Study Guide</NavLink>
