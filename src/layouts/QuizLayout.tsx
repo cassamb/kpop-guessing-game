@@ -2,15 +2,15 @@ import { Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import MainContainer from "../components/MainContainer";
 
-const MainLayout = () => {
+const QuizLayout = () => {
   return (
     <>
-        <Navbar activeQuiz={false}/>
+        <Navbar activeQuiz={true}/>
         <MainContainer>
-          <Outlet/>
+            <Outlet/>
         </MainContainer>
     </>
   )
 }
 
-export default MainLayout
+export default QuizLayout

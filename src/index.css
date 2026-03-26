@@ -9,6 +9,9 @@
   --color-primary: #FFDDB7;
   --color-primary-med: #5D3200;
   --color-primary-dark: #422300;
+
+  --color-warning: #C34E4E;
+  --color-warning-dark: #930000;
 }
 
 #root {

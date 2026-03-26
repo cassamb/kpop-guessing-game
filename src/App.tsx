@@ -1,4 +1,5 @@
 import MainLayout from "./layouts/MainLayout";
+import QuizLayout from "./layouts/QuizLayout";
 import HomePage from "./pages/HomePage";
 import QuizPage from "./pages/QuizPage";
 import InstructionsPage from "./pages/InstructionsPage";
@@ -16,12 +17,18 @@ function App() {
 
       children: [
         { index: true, element: <HomePage/> },
-        { path: "/quiz", element: <QuizPage/> },
         { path: "/instructions", element: <InstructionsPage/> },
         { path: "/study-guide", element: <StudyGuidePage/> },
         { path: "*", element: <NotFoundPage/> },
       ],
-    }
+    },
+    {
+      path: "/quiz",
+      element: <QuizLayout/>,
+      children: [
+        { path: "", element: <QuizPage/> },
+      ],
+    },
   ]);
 
   return (<RouterProvider router={router}/>)
