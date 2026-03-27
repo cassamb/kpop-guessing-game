@@ -4,6 +4,7 @@ import { FaTimes, FaHome, FaInfoCircle } from "react-icons/fa";
 import { ImBooks } from "react-icons/im";
 import { useState } from "react";
 import Modal from "./Modal";
+import ScoreBar from "./ScoreBar";
 
 interface LinkClassProps {
     isActive: boolean;
@@ -33,6 +34,7 @@ const Navbar = ({activeQuiz}: ActiveQuizProps) => {
             { activeQuiz ? (
                 <>
                     {/* Reduced/Minimized Navbar display when quiz is active; user can only navigate back to HomePage */}
+                    <ScoreBar/>
                     <FaHome onClick={() => setShowModal(true)} className="cursor-pointer text-3xl text-warning-dark hover:border-b-4 leading-relaxed transition-all duration-200"/>
 
                     {showModal && (

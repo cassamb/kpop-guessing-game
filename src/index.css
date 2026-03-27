@@ -12,6 +12,9 @@
 
   --color-warning: #C34E4E;
   --color-warning-dark: #930000;
+
+  --color-hint: #ACACAC;
+  --color-hint-dark: #2B2B2B;
 }
 
 #root {
