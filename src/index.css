@@ -10,6 +10,9 @@
   --color-primary-med: #5D3200;
   --color-primary-dark: #422300;
 
+  --color-success: #4EC356;
+  --color-success-dark: #005606;
+
   --color-warning: #C34E4E;
   --color-warning-dark: #930000;
 
@@ -26,4 +29,38 @@
   align-items: center;
   gap: 2rem;
   padding: 1.6rem 1.6rem 4rem;
+}
+
+/* ANSWER CHOICE BUTTON STYLING */
+
+.neutral {
+  background-color: var(--color-primary);
+  color: var(--color-primary-med);
+}
+
+.neutral:hover {
+  transform: translateY(-0.25rem);
+}
+
+.neutral:hover:disabled {
+  transform: translateY(0);
+}
+
+.correct {
+  background-color: var(--color-success);
+  color: var(--color-success-dark);
+}
+
+.incorrect {
+  background-color: var(--color-warning);
+  color: var(--color-warning-dark);
+}
+
+.eliminated {
+  background-color: var(--color-hint);
+  color: var(--color-hint-dark);
+}
+
+button:hover:disabled {
+  cursor: default;
 }

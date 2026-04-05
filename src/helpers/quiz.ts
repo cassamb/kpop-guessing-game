@@ -7,16 +7,40 @@ const shuffle = (arr: number[]) => {
     }
 }
 
-export const getRandomInt = (min: number, max: number): number => {
+const isUnique = (arr: number[], id: number): boolean => {
+    for (var i: number = 0; i < arr.length; i++) {
+        if (arr[i] == id) return false;
+    }
+    return true;
+}
+
+const getRandomInt = (min: number, max: number): number => {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-export const populateQuestions = (totalQs: number): number[] => {
+export const populateQuestions = (totalQuestions: number): number[] => {
     let arr = [];
 
-    for (let i: number = 0; i < totalQs; i++) arr[i] = i + 1;
+    for (let i: number = 0; i < totalQuestions; i++) arr.push(i + 1);
     shuffle(arr);
     return arr; 
+}
+
+export const updateChoices = (correctId: number, totalQuestions: number): number[] => {
+    let choices: number[] = [correctId];
+    let newChoiceId: number;
+
+    for (var i: number = 1; i < 4;) { // Hardcoded to 4 answer choices, but may be modified to include additional options
+        newChoiceId = getRandomInt(1, totalQuestions);
+        
+        if (isUnique(choices, newChoiceId)) {
+            choices.push(newChoiceId);
+            i++;
+        }
+    }
+
+    shuffle(choices);
+    return choices;
 }

@@ -1,8 +1,8 @@
 import { FaLightbulb } from "react-icons/fa";
 import { BiSkipNext } from "react-icons/bi";
-import Button from "../components/Button";
 import { useState, useEffect } from "react";
-import { populateQuestions } from "../helpers/quiz";
+import { populateQuestions, updateChoices } from "../helpers/quiz";
+import AnswerChoices from "../components/AnswerChoices";
 
 interface GroupData {
   id: number;
@@ -10,35 +10,47 @@ interface GroupData {
   url: string;
 }
 
+let questionOrder: number[];
+const totalQuestions: number = 6;
+
 const QuizPage = () => {
-  const totalQuestions: number = 6;
-  const questionOrder: number[] = populateQuestions(totalQuestions);
   const [ currentQuestion, setCurrentQuestion ] = useState<number>(0);
   const [ isFinished, setIsFinished ] = useState<boolean>(false);
-  
   const [ group , setGroup] = useState<GroupData | undefined>();
+  const [ choices, setChoices ] = useState<number[]>([]);
 
-  const fetchGroup = async (id: number): Promise<void> => {
-    const res = await fetch(`http://localhost:3000/groups/${id}`);
+  const updateQuiz = async (id: number): Promise<void> => { 
+    const res = await fetch(`http://localhost:3000/groups/${id}`); 
     const data = await res.json();
     setGroup(data);
+    setChoices(updateChoices(id, totalQuestions)); 
+  };
+
+  const resetButtons = () => {
+    for (let i: number = 0; i < 4; i++) {
+      let btn = document.getElementById("button-" + i) as HTMLButtonElement;
+      btn.disabled = false;
+      
+      if (btn.classList.contains("correct")) btn.classList.remove("correct");
+      else if (btn.classList.contains("incorrect")) btn.classList.remove("incorrect");
+      else if (btn.classList.contains("eliminated")) btn.classList.remove("eliminated");
+      
+      if (!btn.classList.contains("neutral")) btn.classList.add("neutral");
+    }
   };
 
   const next = () => {
     setCurrentQuestion(prevCount => prevCount + 1);
-    if (currentQuestion + 1 == totalQuestions) setIsFinished(true);
-
-    fetchGroup(questionOrder[currentQuestion]);
-  }
-
-  const startQuiz = () => {
-    fetchGroup(questionOrder[currentQuestion]);
-  }
+    resetButtons();
+  };
 
   useEffect (() => {
-    startQuiz();
-  }, [])
-  
+    if (currentQuestion == totalQuestions) setIsFinished(true);
+    else {
+      if (currentQuestion === 0) questionOrder = (populateQuestions(totalQuestions));
+      updateQuiz(questionOrder[currentQuestion]);
+    }
+  }, [currentQuestion]);
 
   return (
     <>
@@ -54,12 +66,7 @@ const QuizPage = () => {
         </div>
         <p className="lg:text-lg">What is the name of the group shown above?</p>
 
-        <div className="grid grid-cols-2 grid-rows-2 gap-3.5 items-center sm:grid-cols-4 sm:grid-rows-1 sm:gap-5 lg:gap-10">
-          <Button>Name</Button>
-          <Button>Name</Button>
-          <Button>Name</Button>
-          <Button>Name</Button>
-        </div>
+        <AnswerChoices choices={choices} correctAnswer={group?.name}/>
 
         <button onClick={next} className="flex justify-center items-center cursor-pointer self-end font-bold bg-primary-light text-primary-dark px-5 py-3 rounded-full transition-all duration-300 hover:-translate-y-1">
           Skip |
