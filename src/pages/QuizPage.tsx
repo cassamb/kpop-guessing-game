@@ -3,6 +3,7 @@ import { BiSkipNext } from "react-icons/bi";
 import { useState, useEffect } from "react";
 import { populateQuestions, updateChoices } from "../helpers/quiz";
 import AnswerChoices from "../components/AnswerChoices";
+import Modal from "../components/Modal";
 
 interface GroupData {
   id: number;
@@ -18,6 +19,9 @@ const QuizPage = () => {
   const [ isFinished, setIsFinished ] = useState<boolean>(false);
   const [ group , setGroup] = useState<GroupData | undefined>();
   const [ choices, setChoices ] = useState<number[]>([]);
+
+  const [ showModal, setShowModal] = useState<boolean>(false);
+
 
   const updateQuiz = async (id: number): Promise<void> => { 
     const res = await fetch(`http://localhost:3000/groups/${id}`); 
@@ -44,6 +48,13 @@ const QuizPage = () => {
     resetButtons();
   };
 
+  
+
+  const handleHint = () => {
+    console.log("hint used ...")
+    setShowModal(false);
+  }
+
   useEffect (() => {
     if (currentQuestion == totalQuestions) setIsFinished(true);
     else {
@@ -54,9 +65,20 @@ const QuizPage = () => {
 
   return (
     <>
+    {showModal && (
+      <div onClick={() => setShowModal(false)} className="fixed bg-black/50 min-h-screen z-9 w-screen flex justify-center items-center top-0 left-0">
+          <Modal warning="You have # hints remaining, would you like to use one?">
+              <button onClick={handleHint} className="cursor-pointer bg-primary text-primary-med text-center px-4 py-2.5 rounded-xl font-semibold transition-transform hover:-translate-y-0.5">Yes, Use Hint</button>
+              <button onClick={() => setShowModal(false)} className="bg-warning text-warning-dark text-center px-4 py-2.5 rounded-xl font-semibold transition-transform hover:-translate-y-0.5">No, Return to Quiz</button>
+          </Modal>
+      </div>           
+    )}
+
+
+
     {!isFinished ? (
       <section className="flex flex-col flex-1 items-center justify-between gap-6 text-center font-semibold">
-        <button className="cursor-pointer shadow self-start flex justify-center items-center h-12 w-12 font-bold text-hint-dark bg-hint rounded-full transition-all duration-300 hover:-translate-y-1">
+        <button onClick={() => setShowModal(true)} className="cursor-pointer shadow self-start flex justify-center items-center h-12 w-12 font-bold text-hint-dark bg-hint rounded-full transition-all duration-300 hover:-translate-y-1">
           <FaLightbulb className="lg:text-lg"/>
         </button>
 

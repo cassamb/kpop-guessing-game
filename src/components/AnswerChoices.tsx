@@ -20,7 +20,7 @@ const AnswerChoices = ({choices, correctAnswer}: AnswerChoicesProps) => {
     setNames(names);
   };
 
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.currentTarget.classList.remove("neutral");
     
     if (e.currentTarget.value == correctAnswer) e.currentTarget.classList.add("correct");
@@ -44,7 +44,7 @@ const AnswerChoices = ({choices, correctAnswer}: AnswerChoicesProps) => {
     <div className="grid grid-cols-2 grid-rows-2 gap-3.5 items-center sm:grid-cols-4 sm:grid-rows-1 sm:gap-5 lg:gap-10">
       {names.map((name: string, index: number) => {
         return (
-        <button key={index} id={`button-${index}`} value={name} onClick={handleClick} className="cursor-pointer w-22 h-10 text-sm rounded-xl transition-all duration-300 lg:w-32 lg:h-14 neutral">
+        <button key={index} id={`button-${index}`} value={name} onClick={checkAnswer} className="cursor-pointer w-22 h-10 text-sm rounded-xl transition-all duration-300 lg:w-32 lg:h-14 neutral">
           {name}
         </button>
         )})}
