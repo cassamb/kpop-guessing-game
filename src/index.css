@@ -42,10 +42,6 @@
   transform: translateY(-0.25rem);
 }
 
-.neutral:hover:disabled {
-  transform: translateY(0);
-}
-
 .correct {
   background-color: var(--color-success);
   color: var(--color-success-dark);
@@ -63,4 +59,5 @@
 
 button:hover:disabled {
   cursor: default;
+  transform: translateY(0);
 }

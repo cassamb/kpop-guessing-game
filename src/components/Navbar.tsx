@@ -40,8 +40,8 @@ const Navbar = ({activeQuiz}: ActiveQuizProps) => {
                     {showModal && (
                         <div onClick={() => setShowModal(false)} className="fixed bg-black/50 min-h-screen z-9 w-screen flex justify-center items-center top-0 left-0">
                             <Modal warning="If you exit the quiz now, all of your progress will be lost and you will be returned to the Home Page.">
-                                <NavLink to="/" className="cursor-pointer bg-primary text-primary-med text-center px-4 py-2.5 rounded-xl font-semibold transition-transform hover:-translate-y-0.5">Return Home</NavLink>
-                                <button onClick={() => setShowModal(false)} className="bg-warning text-warning-dark text-center px-4 py-2.5 rounded-xl font-semibold transition-transform hover:-translate-y-0.5">Continue Quiz</button>
+                                <button onClick={() => setShowModal(false)} className="neutral cursor-pointer text-center px-4 py-2.5 rounded-xl font-semibold transition-transform duration-200 hover:-translate-y-0.5">Continue Quiz</button>
+                                <NavLink to="/" className="incorrect text-center px-4 py-2.5 rounded-xl font-semibold transition-transform duration-200 hover:-translate-y-0.5">Return Home</NavLink>
                             </Modal>
                         </div>
                     )}
@@ -49,8 +49,6 @@ const Navbar = ({activeQuiz}: ActiveQuizProps) => {
             ) : (
                 <>
                     {/* Expanded Navbar display when quiz is inactive; user can navigate to HomePage, InstructionsPage, and StudyGuidePage */}
-                    
-                    {/* Updating the mobile menu toggle state and icons based on user interaction */}
                     <button onClick={() => setShowMobileMenu((prevState => !prevState))} className="md:hidden cursor-pointer z-20">
                         {showMobileMenu ? <FaTimes className="text-3xl"/> : <IoMdMenu className="text-3xl"/>}
                     </button>

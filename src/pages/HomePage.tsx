@@ -14,7 +14,7 @@ const HomePage = () => {
         <p className="mb-8">Now, without further ado let's get started!</p>
 
         <div className="w-26 h-12 flex justify-center items-center bg-white rounded-xl shadow-xl md:w-30 md:h-14 transition-all hover:-translate-y-0.5">
-          <NavLink to="/quiz" className="text-primary-med font-semibold md:text-base">Start Game</NavLink>
+          <NavLink to="/quiz" className="text-primary-med font-semibold md:text-base">Start Quiz</NavLink>
         </div>
         
       </div>
