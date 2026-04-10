@@ -5,6 +5,7 @@ import { shuffle, populateQuestions, updateChoices } from "../helpers/quiz";
 import { fetchName } from "../helpers/loader";
 import AnswerChoices, { showCorrectAnswer, resetAnswerChoices, eliminateChoice } from "../components/AnswerChoices";
 import Modal from "../components/Modal";
+import { updateScoreBar } from "../components/ScoreBar";
 
 interface GroupData {
   id: number;
@@ -15,6 +16,7 @@ interface GroupData {
 let questionOrder: number[];
 const totalQuestions: number = 6;
 const totalHints: number = 3;
+const maxPoints = (1 / totalQuestions) * 100;
 
 const QuizPage = () => {
   const [ currentQuestion, setCurrentQuestion ] = useState<number>(0);
@@ -25,6 +27,8 @@ const QuizPage = () => {
   const [ hints, setHints ] = useState<number[]>([]);
   const [ hintsUsed, setHintsUsed ] = useState<number>(0);
   const [ answerSelected, setAnswerSelected ] = useState<boolean>(false);
+  const [ score, setScore ] = useState<number>(0);
+  const [ userAnswer, setUserAnswer ] = useState<string>("");
 
   // updates data for the current question
   const updateQuiz = async (id: number): Promise<void> => { 
@@ -44,6 +48,8 @@ const QuizPage = () => {
   };
   
   const next = () => {
+    if (userAnswer == group?.name) setScore(prevCount => prevCount + Math.round((4 - hintsUsed)/4 * maxPoints));
+    
     setCurrentQuestion(prevCount => prevCount + 1);
     resetButtons();
   };
@@ -86,9 +92,10 @@ const QuizPage = () => {
   };
 
   const answerSelectionListener = (e: PointerEvent): void => {
-    const target = e.target as HTMLElement;
+    const target = e.target as HTMLButtonElement;
 
-    if (target.id.includes("button-")) {
+    if (target.id.includes("button-")) {      
+      setUserAnswer(target.value);
       setAnswerSelected(true);
       disableHints();
     }
@@ -96,6 +103,7 @@ const QuizPage = () => {
 
   useEffect (() => {
     document.addEventListener("click", answerSelectionListener);
+    updateScoreBar(score);
 
     if (currentQuestion == totalQuestions) setIsFinished(true);
     else {
@@ -145,7 +153,7 @@ const QuizPage = () => {
           </button>
         </section>
       ) : (
-        <div>EndingPage</div>
+        <div>Final Score: {score}</div>
       )}
     </>
   )
